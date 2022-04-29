@@ -1,0 +1,29 @@
+<!-- for room.html to show rooms the django way -->
+
+
+<div class="container">
+    {% if rooms %}
+    {% for room in rooms %}
+      <div class="site-block-half d-flex bg-white" data-aos="fade-up" data-aos-delay="100">
+        <a href="#" class="image d-block bg-image" style="background-image: url(/static/img/hero_2.jpg);"></a>
+        <div class="text">
+          <span class="d-block"><span class="display-4 text-primary">C{{ room.price }}</span> / per night </span>
+          <h2>{{ room.name }}</h2>
+          <h3>{{ room.code }}</h3>
+          <p class="lead">{{ room.description }}</p>
+          {% if room.availability is True %}
+            <h3 class="btn-success">Available</h3>
+          {% else %}
+            <h3 class="btn-danger">Booked</h3>
+          {% endif %}
+          <!-- A superior room is a room in a hotel that is more comfortable or has better amenities than other rooms. It is ₱5000 for a standard room and ₱10000 for a superior room. Superior rooms have a beautiful view over the hills. The superior rooms are larger than the standard rooms -->
+          <p><a href="#" class="btn btn-success text-white" id="{{ room.id }}">Book Now</a></p>
+        </div>
+      </div>
+    {% endfor %}
+    {% else %}
+    <div class="site-block-half d-flex bg-white" data-aos="fade-up" data-aos-delay="100">
+      No Rooms
+    </div>
+    {% endif %}
+    </div>

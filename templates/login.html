@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+{% load static %}
+{% static 'img' as baseUrl %}
+
+    {% block content %}
+    <section class="section contact-section" id="next">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-7" data-aos="fade-up" data-aos-delay="100">
+            
+            <form method="post" class="bg-white p-md-5 p-4 mb-5 border">
+              {% csrf_token %}
+              <div class="row">
+                <div class="col-md-12 form-group">
+                  <label class="text-black font-weight-bold" for="name">Name *</label>
+                  <input type="text" id="username_input_id" class="form-control" required="true">
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12 form-group">
+                  <label class="text-black font-weight-bold" for="checkin_date">Password *</label>
+                  <input type="password" id="password_input_id" name="password1" autofocus class="textinput textInput form-control" required="true" />
+                </div>
+              </div>
+          
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <input type="submit" id="submit_btn" value="Login" class="btn btn-success text-white py-3 px-5">
+                </div>
+              </div>
+              <div id="notification">
+
+              </div>
+            </form>
+
+          </div>
+          <!-- <div class="col-md-5" data-aos="fade-up" data-aos-delay="200">
+            <div class="row">
+              <div class="col-md-10 ml-auto contact-info">
+                <p><span class="d-block">Address:</span> <span> Brgy. Enclaro, Binalbagan, Negros Occidental</span></p>
+                <p><span class="d-block">Phone:</span> <span>09123456789</span></p>
+                <p><span class="d-block">Email:</span> <span> myrel@gmail.com</span></p>
+              </div>
+            </div>
+          </div> -->
+          {% include 'includes/address.html' %}
+        </div>
+      </div>
+    </section>
+    {% endblock content %}
+
+    {% block javascripts %}
+    <script>
+        const username = document.getElementById("username_input_id");
+        const password = document.getElementById("password_input_id");
+        const submit = document.getElementById("submit_btn");
+        // const header = document.getElementById("header");
+        const notification = document.getElementById("notification");
+    
+        const baseURL = "http://127.0.0.1:8000/";
+        // const baseURL = "http://185.187.169.158:8000/"
+        // const baseURL = "http://leszexperts.com/"
+        // const baseURL = "https://www.leszexperts.com/"
+        // const baseURL = "https://leszexperts.com/"
+        // const baseURL = "http://185.187.169.158/"
+        // const baseURL = "http://185.187.169.158:8000/"
+
+        const csrftoken_elmt = document.querySelector('[name=csrfmiddlewaretoken]');
+    
+        let csrftoken, final_data = {};
+    
+        console.log("Helloooooo: ")
+
+    
+        submit.addEventListener("click", (evt) => {
+            evt.preventDefault();
+            csrftoken = csrftoken_elmt.value;
+            console.log(csrftoken)
+            final_data = {
+                email: username.value,
+                password: password.value,
+                book_new_user: "different"
+            }
+
+            console.log(final_data)
+
+            if (username.value && password.value) {
+                sendCredentials(final_data, csrftoken)
+                console.log(sendCredentials(final_data, csrftoken))
+            } else {
+                if (username.value === "") {
+                    alert("Nom d'utilisateur vide")
+                    notification.innerHTML = `<span style='color: rgb(253, 116, 53); font-size: 2rem;'>User name must be entered in this field</span>`;
+                } else if (password.value === "") {
+                    alert("Mot de pass vide")
+                    notification.innerHTML = `<span style='color: rgb(253, 116, 53); font-size: 2rem;'>Vous avez oubliez le mot de passe</span>`;
+                }
+                // alert("Selectionez soit Monsieur ou Madame.")
+                // notification.innerHTML = `<span style='color: rgb(253, 116, 53); font-size: 2rem;'>Aucun Champ ne doit etre vide</span>`;
+            }
+    
+        })
+
+
+        const sendCredentials = (raw_data, csrf_data) => {
+            return fetch (
+                // "http://127.0.0.1:8000/accounts/login/",
+                `${baseURL}accounts/Login`,
+                {
+                    method: "POST",
+                    body: JSON.stringify(raw_data),
+                    headers: {
+                        'Content-type': 'application/json; charset-UTF-8',
+                        'X-CSRFToken': csrf_data
+                    }
+                }
+            )
+            .then(response => {
+                return response.json();
+            })
+            .then(json => {
+                console.log("crazy", json)
+                if (json.status === true) {
+                    notification.innerHTML = `<span style='color: rgb(253, 116, 53); font-size: 2rem;'>${json.message}</span>`;
+                    alert(`${json.message}`)
+                    window.location.assign(`${baseURL}accounts/my_dasboard`);
+                    // if (json.u_type === "admin") {
+                    //     // window.location.assign("http://127.0.0.1:8000/accounts/admin_dashboard/")
+                    //     alert(`${json.message}`)
+                    //     window.location.assign(`${baseURL}accounts/admin_dashboard/`);
+                    //     // window.location.assign("https://www.leszexperts.com/accounts/admin_dashboard/")
+                    // } else if (json.u_type === "client") {
+                    //     // window.location.assign("http://127.0.0.1:8000/accounts/client_dashboard/")
+                    //     // alert(`${json.message}`)
+                    //     window.location.assign(`${baseURL}accounts/client_dashboard/`);
+                    //     // window.location.assign("https://www.leszexperts.com/accounts/client_dashboard/")
+                    // } else if (json.u_type === "professionel") {
+                    //     // window.location.assign("http://127.0.0.1:8000/accounts/pro_dashboard/")
+                    //     window.location.assign(`${baseURL}accounts/pro_dashboard/`);
+                    //     alert(`${json.message}`)
+                    //     // window.location.assign("https://www.leszexperts.com/accounts/pro_dashboard/")
+                    // }
+                } else {
+                    alert(`${json.message}`)
+                    notification.innerHTML = `<span style='color: rgb(253, 116, 53); font-size: 2rem;'>${json.message}</span>`;
+                }
+                
+            })
+            .catch(err => console.log("Hello", err));
+        }
+    </script>
+    {% endblock javascripts %}
+
+
+

@@ -1,0 +1,404 @@
+{% load static %}
+{% static 'img' as baseUrl %}
+
+<html lang="en">
+  <head>
+    <title>Myrel Hotel Reservation</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Mukta+Mahee:200,300,400|Playfair+Display:400,700" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/aos.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-datepicker.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jquery.timepicker.css' %}">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+
+    <link rel="stylesheet" href="{% static 'fonts/ionicons/css/ionicons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/fontawesome/css/font-awesome.min.css' %}">
+
+    
+
+
+    <!-- Theme Style -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  </head>
+  <body>
+    
+    <header class="site-header">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-4 site-logo" data-aos="fade"><a href="index.html"><em>Myrel Hotel Reservation</em></a></div>
+          <div class="col-8">
+
+
+            <div class="site-menu-toggle js-site-menu-toggle"  data-aos="fade">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <!-- END menu-toggle -->
+
+            <div class="site-navbar js-site-navbar">
+              <nav role="navigation">
+                <div class="container">
+                  <div class="row full-height align-items-center">
+                    <div class="col-md-6 mx-auto text-center">
+                      <ul class="list-unstyled menu">
+                        <li><a href="{% url 'index' %}">Home</a></li>
+                        <!-- <li><a href="{% url 'allRooms' %}">Rooms</a></li> -->
+                        <!-- <li><a href="{% url 'about' %}">About</a></li> -->
+                        <!-- <li><a href="{% url 'contact' %}">Contact</a></li> -->
+                        <li><a href="{% url 'login' %}">Login</a></li>
+                        <li><a href="{% url 'blog' %}">Blog</a></li>
+                        <li class="active"><a href="{% url 'register' %}">Register</a></li>
+                        <li><a href="{% url 'reservation' %}">Reservation Form</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+
+    
+    <section class="section contact-section" id="next">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-7" data-aos="fade-up" data-aos-delay="100">
+            
+            <form action="#" method="post" class="bg-white p-md-5 p-4 mb-5 border">
+              {% csrf_token %}
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <label class="text-black font-weight-bold" for="name">Name</label>
+                  <input type="text" id="name" class="form-control ">
+                </div>
+                <div class="col-md-6 form-group">
+                  <label class="text-black font-weight-bold" for="phone">Phone</label>
+                  <input type="text" id="phone" class="form-control ">
+                </div>
+              </div>
+          
+              <div class="row">
+                <div class="col-md-12 form-group">
+                  <label class="text-black font-weight-bold" for="email">Email</label>
+                  <input type="email" id="email" class="form-control ">
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <label class="text-black font-weight-bold" for="checkin_date">Date Check In</label>
+                  <input type="text" id="checkin_date" class="form-control">
+                </div>
+                <div class="col-md-6 form-group">
+                  <label class="text-black font-weight-bold" for="checkout_date">Date Check Out</label>
+                  <input type="text" id="checkout_date" class="form-control">
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <label for="adults" class="font-weight-bold text-black">Adults</label>
+                  <div class="field-icon-wrap">
+                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                    <select name="" id="adults" class="form-control">
+                      <option value="">1</option>
+                      <option value="">2</option>
+                      <option value="">3</option>
+                      <option value="">4+</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6 form-group">
+                  <label for="children" class="font-weight-bold text-black">Children</label>
+                  <div class="field-icon-wrap">
+                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                    <select name="" id="children" class="form-control">
+                      <option value="">1</option>
+                      <option value="">2</option>
+                      <option value="">3</option>
+                      <option value="">4+</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              
+
+              <div class="row mb-4">
+                <div class="col-md-12 form-group">
+                  <label class="text-black font-weight-bold" for="message">Notes</label>
+                  <textarea name="message" id="message" class="form-control " cols="30" rows="8"></textarea>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <input type="submit" value="Reserve Now" class="btn btn-success text-white py-3 px-5">
+                </div>
+              </div>
+            </form>
+
+          </div>
+          <div class="col-md-5" data-aos="fade-up" data-aos-delay="200">
+            <div class="row">
+              <div class="col-md-10 ml-auto contact-info">
+                <p><span class="d-block">Address:</span> <span> Brgy. Enclaro, Binalbagan, Negros Occidental</span></p>
+                <p><span class="d-block">Phone:</span> <span>09123456789</span></p>
+                <p><span class="d-block">Email:</span> <span> myrel@gmail.com</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- END section -->
+
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'js/jquery-migrate-3.0.1.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/jquery.stellar.min.js' %}"></script>
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+
+
+    <script src="{% static 'js/aos.js' %}"></script>
+
+    <script src="{% static 'js/bootstrap-datepicker.js' %}"></script>
+    <script src="{% static 'js/jquery.timepicker.min.js' %}"></script>
+
+
+
+    <script src="{% static 'js/main.js' %}"></script>
+
+    <script>
+        const baseURL = "http://127.0.0.1:8000/"
+        // const baseURL = "http://185.187.169.158:8000/"
+        // const baseURL = "https://www.leszexperts.com/"
+        // const baseURL = "https://leszexperts.com/"
+        // const baseURL = "http://185.187.169.158/"
+        // const baseURL = "http://185.187.169.158:8000/"
+        
+        // Client Registration Form Codes
+        // const gender_female = document.querySelector(".gender_female");
+        // const gender_male = document.querySelector(".gender_male");
+        // const user_client = document.querySelector(".user_client");
+        // user_client.style.display = "none";
+        // const user_pro = document.querySelector(".user_pro");
+        // user_pro.style.display = "grid"
+        const submit_btn = document.getElementById("submit_btn");
+        const csrftoken_elmt = document.querySelector('[name=csrfmiddlewaretoken]');
+        const id_female = document.getElementById("id_female");
+        const id_male = document.getElementById("id_male");
+        const id_client = document.getElementById("id_client");
+        const id_pro = document.getElementById("id_pro");
+        console.log("id for pro: ", id_pro)
+        // id_pro.style.display = "grid"
+
+        // const id_address = document.getElementById("id_address");
+        const id_firstname = document.getElementById("id_firstname");
+        const id_lastname = document.getElementById("id_lastname");
+        const id_address = document.getElementById("id_address");
+        const id_city = document.getElementById("id_city");
+        const id_phone = document.getElementById("id_phone");
+        const id_email = document.getElementById("id_email");
+        const id_password1 = document.getElementById("id_password1");
+        const id_password2 = document.getElementById("id_password2");
+        const feedback = document.querySelector(".feedback");
+
+        const conditions_id = document.getElementById("conditions_id");
+
+        let inputs = document.querySelectorAll("input")
+        
+        const validateEmail = (inputText) => {
+            const email_format = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+            if (inputText.value.match(email_format)) {
+                return (true)
+            } else {
+                alert("Votre email est invalide")
+                return (false)
+            }
+        }
+
+        function reset(service) {
+            conditions_id.checked = false;
+            id_male.checked = true
+            id_female.checked = false
+            id_client.checked = true
+            id_pro.checked = false
+        }
+
+        
+        let data = {};
+        let indentity, address, user_type;
+
+        gender_female.addEventListener("click", () => {
+            gender_female.style.backgroundColor = " rgb(109, 137, 163)";
+            gender_female.style.color = "white";
+            gender_male.style.backgroundColor = "white";
+            gender_male.style.color = "grey";
+            id_female.checked = true
+            id_male.checked = false
+            console.log("female checked")
+        })
+
+        gender_male.addEventListener("click", () => {
+            gender_male.style.backgroundColor = " rgb(109, 137, 163)";
+            gender_male.style.color = "white";
+            gender_female.style.backgroundColor = "white";
+            gender_female.style.color = "grey";
+            indentity = "Monsieur";
+            id_male.checked = true
+            id_female.checked = false
+            console.log("male checked")
+        })
+
+
+        user_client.addEventListener("click", () => {
+            user_client.style.backgroundColor = " rgb(109, 137, 163)";
+            user_client.style.color = "white";
+            user_pro.style.backgroundColor = "white";
+            user_pro.style.color = "grey";
+            id_client.checked = true
+            id_pro.checked = false
+            console.log("client checked")
+        })
+
+        user_pro.addEventListener("click", () => {
+            user_pro.style.backgroundColor = " rgb(109, 137, 163)";
+            user_pro.style.color = "white";
+            user_client.style.backgroundColor = "white";
+            user_client.style.color = "grey";
+            id_pro.checked = true
+            id_client.checked = false
+            console.log("pro checked")
+        })
+        
+        submit_btn.addEventListener("click", (evt) => {
+            evt.preventDefault();
+
+            if (id_client.checked == true) {
+            
+                data = {
+                    user_type: "client"
+                }
+            } else if (id_pro.checked == true) {
+                
+                data = {
+                    user_type: "professionel"
+                }
+            } else {
+                console.log("no client nor pro checked")
+                data = {
+                    user_type: ""
+                }
+            }
+
+            console.log("first User type: ", data.user_type)
+
+
+            if (id_female.checked == true) {
+                data.indentity = "Madame"
+            } else if (id_male.checked == true) {
+                data.indentity = "Monsieur"
+            } else {
+                console.log("no female nor male checked")
+                data.indentity = ""
+            }
+
+            console.log("First User gender: ", data.indentity)
+            
+            data.email = id_email.value;
+            data.firstname = id_firstname.value
+            data.lastname = id_lastname.value
+            data.address = id_address.value;
+            data.city = id_city.value;
+            data.phone = id_phone.value;
+            // data.address = id_address.value;
+            data.password_1 = id_password1.value;
+            data.save_reservation_boolean = true;
+            data.password_2 = id_password2.value;
+            console.log("User gender: ", data.indentity)
+            console.log("User type: ", data.user_type)
+
+
+            if (conditions_id.checked == true) {
+            // validate email
+                if (validateEmail(id_email) == true) {
+                    
+                    // validate title
+                    if (data.indentity == "Monsieur" || data.indentity == "Madame") {
+                        if (data.user_type == "client" || data.user_type == "professionel") {
+                            if (id_password1.value === id_password2.value) {
+
+                                fetch(
+                                    // "http://127.0.0.1:8000/registration/signup/",
+                                    `${baseURL}registration/signup/`,
+                                    // "https://www.leszexperts.com/registration/signup/",
+                                    {
+                                        method: "POST",
+                                        body: JSON.stringify(data),
+                                        // body: new FormData(formData),
+                                        headers: {
+                                            'Content-type': 'application/json; charset-UTF-8',
+                                            'X-CSRFToken': csrftoken_elmt.value
+                                        }
+                                    }
+                                )
+                                .then(response => {
+                                    return response.json();
+                                })
+                                .then(json => {
+                                    console.log("The Json: ", json)
+
+                                    alert(`${json.message}`);
+                                    feedback.innerHTML = `<span style='color: red; font-size: 2rem;'>${json.message}</span>`;
+
+                                    if (json.status === true) {
+                                        window.location.assign(`${baseURL}registration/success/`);
+                                    }
+
+                                })
+                                .catch(err => console.log("Hello", err));
+
+                            } else {
+                                alert("Les deux mots de pass ne sont pas identiques")
+                                console.log("les mot de pass ne se ressmblent pas")
+                                feedback.innerHTML = `<span style='color: red; font-size: 2rem;'>Veuillez vous rassurer que les mots de pass sont identiques.</span>`;
+                            }
+                        } else {
+                            alert("Selectionez soit Client ou Professionnel.")
+                            console.log("type d'utilsateur non specifie")
+                            feedback.innerHTML = `<span style='color: red; font-size: 2rem;'>Veillez s'il vous plait selectionner votre type d'utilisateur plus haut, client ou professionnel?</span>`;
+                        }
+
+                    } else {
+                        alert("Selectionez soit Monsieur ou Madame.")
+                        console.log("titre d'utilsateur non specifie")
+                        feedback.innerHTML = `<span style='color: red; font-size: 2rem;'>Veillez s'il vous plait selectionner votre titre plus haut, pour pouvoir sauvergarder</span>`;
+                    }
+
+                } else {
+                    feedback.innerHTML = `<span style='color: red; font-size: 2rem;'>Email invalide...impossible d'executer l'enregistrement</span>`;
+                }
+
+            } else {
+                alert("Cochez la case des conditions!")
+                feedback.innerHTML = `<span style='color: red; font-size: 2rem;'>Vous n'avez pas coche la case des conditions...impossible d'executer l'enregistrement</span>`;
+            }
+
+        })
+
+    </script>
+  </body>
+</html>

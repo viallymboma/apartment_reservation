@@ -1,0 +1,370 @@
+{% extends "base.html" %}
+{% load static %}
+{% static 'img' as baseUrl %}
+
+    {% block content %}
+    <section class="site-hero inner-page overlay" style="background-image: url('{{ image }}')" data-stellar-background-ratio="0.5">
+      <div class="container">
+        <div class="row site-hero-inner justify-content-center align-items-center text-center">
+          <div class="col-md-10 text-center" data-aos="fade-up">
+            <h1 class="heading">Reservation</h1>
+            {% if message_not_login %}
+              <h2> {{ message_not_login }} </h2>
+            {% endif %}
+            <!-- message_not_login -->
+          </div>
+        </div>
+      </div>
+
+      <a class="mouse smoothscroll" href="#next">
+        <div class="mouse-icon">
+          <span class="mouse-wheel"></span>
+        </div>
+      </a>
+    </section>
+    <!-- END section -->
+
+
+    <!-- <div class="image_div">
+      <img src={{ image }} alt="" srcset="">
+    </div> -->
+
+    
+    <section class="section contact-section" id="next">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12" data-aos="fade-up" data-aos-delay="100">
+            <div class="site-block-half d-flex bg-white" data-aos="fade-up" data-aos-delay="100">
+              <div class="image d-block bg-image" id="image_"></div>
+              <div class="text">
+                {% if the_room %}
+                
+                {% for room in the_room %}
+                <span class="d-block"><span class="display-4 text-primary">C {{ room.price }}</span> / per night </span>
+                <h2>{{ room.name }}</h2>
+                <h3>{{ room.code }}</h3>
+                <p class="lead">{{ room.description }}</p>
+                <!-- {{ room.availability ? '<h3 class="btn-success">Available</h3>' : '<h3 class="btn-danger">Booked</h3>' } -->
+                {% if room.availability is True %}
+                  <h3 class="btn-success">Available</h3>
+                {% else %}
+                  <h3 class="btn-danger">Booked</h3>
+                {% endif %}
+                {% endfor %}
+                {% else %}
+                  <h1>Select a Appartment in the Appartment</h1>
+                  <div class="row justify-content-center text-center mt-5" data-aos="fade-up" data-aos-delay="300">
+                    <div class="col-md-4"><p><a href="{% url 'allRooms' %}" class="btn btn-success text-white py-3 px-5">View All Apartments</a></p></div>
+                  </div>
+                {% endif %}
+
+                <!-- {{ the_room.availability ? `<p><a href='${baseURL}rooms/api/get_a_room/?q=${room.pk}' class="btn btn-success text-white" id="${ room.pk }">Book Now</a></p>` : '' } -->
+              </div>
+            </div>
+            
+            <form action="#" method="post" class="bg-white p-md-5 p-4 mb-5 border">
+              {% csrf_token %}
+              <!-- <div class="row">
+                <div class="col-md-6 form-group">
+                  <label class="text-black font-weight-bold" for="name">Name</label>
+                  <input type="text" id="name_input_id" class="form-control ">
+                </div>
+                <div class="col-md-6 form-group">
+                  <label class="text-black font-weight-bold" for="phone">Phone</label>
+                  <input type="text" id="phone_input_id" class="form-control ">
+                </div>
+              </div> -->
+
+              <!-- {{ all_appartments | safe }} -->
+          
+              <!-- <div class="row">
+                <div class="col-md-12 form-group">
+                  <label class="text-black font-weight-bold" for="email">Email</label>
+                  <input type="email" id="email_input_id" class="form-control ">
+                </div>
+              </div> -->
+
+              <input type="hidden" name="" id="hidden_input_id" value="{{ request.session.id }}">
+
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <label class="text-black font-weight-bold" for="checkin_date">Date Check In</label>
+                  <input type="date" id="checkin_date_input_id" class="form-control">
+                </div>
+                <div class="col-md-6 form-group">
+                  <label class="text-black font-weight-bold" for="checkout_date">Date Check Out</label>
+                  <input type="date" id="checkout_date_input_id" class="form-control">
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <label for="adults" class="font-weight-bold text-black">Adults</label>
+                  <div class="field-icon-wrap">
+                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                    <select name="" id="adults_input_id" class="form-control">
+                      <option value=1>1</option>
+                      <option value=2>2</option>
+                      <option value=3>3</option>
+                      <option value=4>4+</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6 form-group">
+                  <label for="children" class="font-weight-bold text-black">Children</label>
+                  <div class="field-icon-wrap">
+                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                    <select name="" id="children_input_id" class="form-control">
+                      <option value=1>1</option>
+                      <option value=2>2</option>
+                      <option value=3>3</option>
+                      <option value=4>4+</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mb-4">
+                <div class="col-md-12 form-group">
+                  <label class="text-black font-weight-bold" for="message">Notes</label>
+                  <textarea name="message" id="message_input_id" class="form-control " cols="30" rows="8"></textarea>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <input type="submit" id="book_appart_submit" value="Book Now" class="btn btn-success text-white py-3 px-5">
+                </div>
+              </div>
+
+              <div class="feedback">
+
+              </div>
+            </form>
+
+          </div>
+
+          <!-- <div class="col-md-5" data-aos="fade-up" data-aos-delay="200">
+            <div class="row">
+              <div class="col-md-10 ml-auto contact-info">
+                <p><span class="d-block">Address:</span> <span> North Kaneshi, Red Okai Stree No 13, Accra, Ghana</span></p>
+                <p><span class="d-block">Phone:</span> <span>0244381608</span></p>
+                <p><span class="d-block">Email:</span> <span> ftcheute@gmail.com</span></p>
+              </div>
+            </div>
+          </div> -->
+        </div>
+      </div>
+    </section>
+    
+    {% include 'includes/address.html' %}
+    
+    <!-- END section -->
+    <section class="section testimonial-section bg-light">
+      <div class="container">
+        <div class="row justify-content-center text-center mb-5">
+          <div class="col-md-8">
+            <h2 class="heading" data-aos="fade-up">Testimonial</h2>
+            <p>It is a lovely place to stay, with clean and comfortable rooms, great facilities like fridge, T.V., microwave, tea and coffee. The staff are very kind, cheerful and helpful.</p>
+          </div>
+        </div>
+
+
+        
+        <div class="row">
+          <div class="js-carousel-2 owl-carousel mb-5" data-aos="fade-up" data-aos-delay="200">
+            
+            <div class="testimonial text-center slider-item">
+              <div class="author-image mb-3">
+               
+              </div>
+              <blockquote>
+
+                <p>&ldquo;It is a lovely place to stay, with clean and comfortable rooms, great facilities like fridge, T.V., microwave, tea and coffee. The staff are very kind, cheerful and helpful.&rdquo;</p>
+              </blockquote>
+              <p><em>&mdash; Adrian Mercurio</em></p>
+            </div> 
+
+            <div class="testimonial text-center slider-item">
+              <div class="author-image mb-3">
+               
+              </div>
+              <blockquote>
+                <p>&ldquo;It is a lovely place to stay, with clean and comfortable rooms, great facilities like fridge, T.V., microwave, tea and coffee. The staff are very kind, cheerful and helpful.&rdquo;</p>
+              </blockquote>
+              <p><em>&mdash; Jude Angel Suares</em></p>
+            </div>
+
+            <div class="testimonial text-center slider-item">
+              <div class="author-image mb-3">
+                
+              </div>
+              <blockquote>
+
+                <p>&ldquo;It is a lovely place to stay, with clean and comfortable rooms, great facilities like fridge, T.V., microwave, tea and coffee. The staff are very kind, cheerful and helpful.&rdquo;</p>
+              </blockquote>
+              <p><em>&mdash; Niko Curaza</em></p>
+            </div>
+
+
+            <div class="testimonial text-center slider-item">
+              <div class="author-image mb-3">
+                
+              </div>
+              <blockquote>
+
+                <p>&ldquo;It is a lovely place to stay, with clean and comfortable rooms, great facilities like fridge, T.V., microwave, tea and coffee. The staff are very kind, cheerful and helpful.&rdquo;</p>
+              </blockquote>
+              <p><em>&mdash; Kimmy Matillano</em></p>
+            </div> 
+
+            <div class="testimonial text-center slider-item">
+              <div class="author-image mb-3">
+                
+              </div>
+              <blockquote>
+                <p>&ldquo;It is a lovely place to stay, with clean and comfortable rooms, great facilities like fridge, T.V., microwave, tea and coffee. The staff are very kind, cheerful and helpful.&rdquo;</p>
+              </blockquote>
+              <p><em>&mdash; Saxon ong</em></p>
+            </div>
+
+            <div class="testimonial text-center slider-item">
+              <div class="author-image mb-3">
+                
+              </div>
+              <blockquote>
+
+                <p>&ldquo;It is a lovely place to stay, with clean and comfortable rooms, great facilities like fridge, T.V., microwave, tea and coffee. The staff are very kind, cheerful and helpful.&rdquo;</p>
+              </blockquote>
+              <p><em>&mdash; July King Cadayuna</em></p>
+            </div>
+
+          </div>
+            <!-- END slider -->
+        </div>
+
+      </div>
+    </section>
+    
+    <!-- Safe way to get data from django and pass it down to javascript -->
+    {{ all_appartments | json_script:"all_appartments" }}
+    {% endblock content %}
+
+
+    {% block javascripts %}
+
+    <script>
+      console.log("Hi")
+      // const room = "{{ all_appartments | safe }}"
+      const room = JSON.parse(document.getElementById('all_appartments').textContent)
+      const the_room = room[0].fields
+      console.log(room)
+      console.log(room[0].fields)
+      console.log(the_room.name)
+      console.log(room[0].pk)
+
+      const baseURL = "http://127.0.0.1:8000/"
+
+      const image_ = document.getElementById("image_");
+
+      const loadImage = () => {
+        image_.style.backgroundImage = `url(http://127.0.0.1:8000/media/${the_room.image})`
+      }
+
+      loadImage ()
+
+      const checkin_date_input_id = document.getElementById("checkin_date_input_id");
+      const checkout_date_input_id = document.getElementById("checkout_date_input_id");
+      const message_input_id = document.getElementById("message_input_id");
+      const feedback = document.querySelector(".feedback")
+
+      const adults_input_id = document.getElementById("adults_input_id");
+      const selectedAdultValue = adults_input_id.options[adults_input_id.selectedIndex]
+      console.log(selectedAdultValue.value)
+      // const selectedAdultValue = adults_input_id.querySelector("[selected]");
+
+      const children_input_id = document.getElementById("children_input_id");
+      const selectedChildrenValue = children_input_id.options[children_input_id.selectedIndex]
+      console.log(selectedChildrenValue.value)
+      // const selectedChildrenValue = children_input_id.querySelector("[selected]");
+
+      // const adult_val_one = adults_input_id[0].value
+      // const adult_text_one = adults_input_id[0].text
+
+      const book_appart_submit = document.getElementById("book_appart_submit");
+      const hidden_input_id = document.getElementById("hidden_input_id")
+
+      const csrftoken_elmt = document.querySelector('[name=csrfmiddlewaretoken]');
+      console.log(children_input_id)
+      console.log(adults_input_id)
+      // console.log(adult_text_one)
+
+      data = {}
+
+      book_appart_submit.addEventListener("click", (evt) => {
+            evt.preventDefault();
+            // data.firstname = firstname_input_id.value
+            // data.lastname = lastname_input_id.value
+            // data.dob = dob_input_id.value
+            data.checkin_date = checkin_date_input_id.value
+            data.checkout_date = checkout_date_input_id.value
+            data.message = message_input_id.value
+            data.adults = selectedAdultValue.value
+            data.children = selectedAdultValue.value
+            data.user_id = hidden_input_id.value
+            data.room = room[0].pk
+
+            console.log(data)
+
+            if (checkin_date_input_id.value && checkout_date_input_id.value && hidden_input_id.value) {
+
+              fetch(
+                  // "http://127.0.0.1:8000/accounts/Register",
+                  `${baseURL}reservations/reservation`,
+                  {
+                      method: "POST",
+                      body: JSON.stringify(data),
+                      headers: {
+                          'Content-type': 'application/json; charset-UTF-8',
+                          'X-CSRFToken': csrftoken_elmt.value
+                      }
+                  }
+              )
+              .then(response => {
+                  return response.json();
+              })
+              .then(json => {
+                  console.log("The Json: ", json)
+
+                  alert(`${json.message}`);
+                  feedback.innerHTML = `<span style='color: red; font-size: 2rem;'>${json.message}</span>`;
+
+                  // if (json.status === true) {
+                  //     window.location.assign(`${baseURL}accounts/my_dasboard`);
+                  // }
+
+              })
+              .catch(err => console.log("Hello", err));
+
+            } else {
+              alert("Fill in the Check In and Check out date")
+              console.log("Fill in the Check In and Check out date")
+              feedback.innerHTML = `<span style='color: red; font-size: 2rem;'>Fill in the Check In and Check out date.</span>`;
+            }
+
+            
+
+        })
+
+
+    </script>
+
+    {% endblock javascripts %}
+
+
+
+
+
+
+
+
+

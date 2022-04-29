@@ -1,0 +1,213 @@
+{% extends "base.html" %}
+{% load static %}
+{% static 'img' as baseUrl %}
+
+    {% block content %}
+    
+    <section class="section contact-section" id="next">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-7" data-aos="fade-up" data-aos-delay="100">
+            
+            <form action="#" method="post" class="bg-white p-md-5 p-4 mb-5 border">
+              {% csrf_token %}
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <label class="text-black font-weight-bold" for="name">First Name *</label>
+                  <input type="text" id="firstname_input_id" class="form-control" required="true">
+                </div>
+                <div class="col-md-6 form-group">
+                  <label class="text-black font-weight-bold" for="name">Last Name *</label>
+                  <input type="text" id="lastname_input_id" class="form-control" required="true">
+                </div>
+              </div>
+          
+              <div class="row">
+                <div class="col-md-12 form-group">
+                  <label class="text-black font-weight-bold" for="dob">Date Of Birth</label>
+                  <input type="text" id="dob_input_id" class="form-control">
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <label class="text-black font-weight-bold" for="email">Email</label>
+                  <input type="email" id="email_input_id" class="form-control ">
+                </div>
+                
+                <div class="col-md-6 form-group">
+                  <label class="text-black font-weight-bold" for="phone">Phone</label>
+                  <input type="number" id="phone_input_id" class="form-control ">
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <label class="text-black font-weight-bold" for="address">Address</label>
+                  <input type="text" id="address_input_id" class="form-control ">
+                </div>
+                <div class="col-md-6 form-group">
+                  <label class="text-black font-weight-bold" for="city">City</label>
+                  <input type="text" id="city_input_id" class="form-control ">
+                </div>
+              </div>
+              
+              <div class="row">
+                <div class="col-md-12 form-group">
+                  <label class="text-black font-weight-bold" for="checkin_date">Password *</label>
+                  <input type="password" id="password_input_id_1" name="password1" autofocus class="textinput textInput form-control" required="true" />
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12 form-group">
+                  <label class="text-black font-weight-bold" for="checkout_date">Repeat Password *</label>
+                  <input type="password" id="password_input_id_2" name="password2" autofocus class="textinput textInput form-control" required="true" />
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="feedback"></div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <input type="submit" value="Sing Up" id="signup_btn" class="btn btn-success text-white py-3 px-5">
+                </div>
+              </div>
+            </form>
+
+          </div>
+          {% include 'includes/address.html' %}
+        </div>
+      </div>
+    </section>
+
+    {% endblock content %}
+
+
+    {% block javascripts %}
+    <script>
+        const baseURL = "http://127.0.0.1:8000/"
+        // const baseURL = "http://185.187.169.158:8000/"
+        // const baseURL = "https://www.leszexperts.com/"
+        // const baseURL = "https://leszexperts.com/"
+        // const baseURL = "http://185.187.169.158/"
+        // const baseURL = "http://185.187.169.158:8000/"
+        
+        const firstname_input_id = document.getElementById("firstname_input_id");
+        const lastname_input_id = document.getElementById("lastname_input_id");
+        const dob_input_id = document.getElementById("dob_input_id");
+        const email_input_id = document.getElementById("email_input_id");
+        const phone_input_id = document.getElementById("phone_input_id");
+        const address_input_id = document.getElementById("address_input_id");
+        const city_input_id = document.getElementById("city_input_id");
+        const password_input_id_1 = document.getElementById("password_input_id_1");
+        const password_input_id_2 = document.getElementById("password_input_id_2");
+        const csrftoken_elmt = document.querySelector('[name=csrfmiddlewaretoken]');
+        const signup_btn = document.getElementById("signup_btn")
+        const feedback = document.querySelector(".feedback")
+
+        const validateEmail = (inputText) => {
+            const email_format = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+            if (inputText.value.match(email_format)) {
+                return (true)
+            } else {
+                alert("Votre email est invalide")
+                return (false)
+            }
+        }
+
+        function reset(service) {
+          firstname_input_id.value = null
+          lastname_input_id.value = null
+          dob_input_id.value = null
+          email_input_id.value = null
+          phone_input_id.value = null
+          address_input_id.value = null
+          city_input_id.value = null
+          password_input_id_1.value = null
+          password_input_id_2.value = null
+        }
+
+        
+        let data = {};
+
+        
+        signup_btn.addEventListener("click", (evt) => {
+            evt.preventDefault();
+            
+            
+            data.firstname = firstname_input_id.value
+            data.lastname = lastname_input_id.value
+            data.dob = dob_input_id.value
+            data.email = email_input_id.value
+            data.phone = phone_input_id.value
+            data.address = address_input_id.value
+            data.city = city_input_id.value
+            data.password_1 = password_input_id_1.value
+            data.password_2 = password_input_id_2.value
+
+            console.log(data)
+
+            if (password_input_id_1.value === password_input_id_2.value) {
+
+              fetch(
+                  // "http://127.0.0.1:8000/accounts/Register",
+                  `${baseURL}accounts/Register`,
+                  {
+                      method: "POST",
+                      body: JSON.stringify(data),
+                      headers: {
+                          'Content-type': 'application/json; charset-UTF-8',
+                          'X-CSRFToken': csrftoken_elmt.value
+                      }
+                  }
+              )
+              .then(response => {
+                  return response.json();
+              })
+              .then(json => {
+                  console.log("The Json: ", json)
+
+                  alert(`${json.message}`);
+                  feedback.innerHTML = `<span style='color: red; font-size: 2rem;'>${json.message}</span>`;
+
+                  if (json.status === true) {
+                      window.location.assign(`${baseURL}rooms/allRooms`);
+                  }
+
+              })
+              .catch(err => console.log("Hello", err));
+
+            } else {
+              alert("Passwords do not match")
+              console.log("les mot de pass ne se ressmblent pas")
+              feedback.innerHTML = `<span style='color: red; font-size: 2rem;'>Passwords do not match.</span>`;
+            }
+
+            
+
+        })
+
+    </script>
+    {% endblock javascripts %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

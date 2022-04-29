@@ -1,0 +1,49 @@
+
+{% load static %}
+
+<footer class="section footer-section bg-success">
+    <div class="container">
+      <div class="row mb-4">
+        <div class="col-md-3 mb-5">
+          <ul class="list-unstyled link">
+            <li><a href="{% url 'allRooms' %}">Apartments</a></li>
+                      <li><a href="/About">About</a></li>
+                      <li><a href="/Blog">Events</a></li>
+                      <li><a href="/Contact">Contact</a></li>
+                      <li><a href="/Reservation">Reservation Form</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3 mb-5">
+          <ul class="list-unstyled link">
+
+
+          </ul>
+        </div>
+        <div class="col-md-3 mb-5 pr-md-5 contact-info">
+          <!-- <p><span class="d-block"><span class="ion-ios-location h5 mr-3 text-primary"></span>Address:</span> <span>Brgy. Enclaro, Binalbagan, Negros Occidental</span></p>
+          <p><span class="d-block"><span class="ion-ios-telephone h5 mr-3 text-primary"></span>Phone:</span> <span>09123456789</span></p>
+          <p><span class="d-block"><span class="ion-ios-email h5 mr-3 text-primary"></span>Email:</span> <span> myrel@gmail.com</span></p> -->
+          {% include 'includes/address.html' %}
+        </div>
+
+        <div class="col-md-3 mb-5">
+          <p>Sign up for our newsletter</p>
+          <form action="#" class="footer-newsletter">
+            <div class="form-group">
+              <input type="email" class="form-control" placeholder="Your email...">
+              <button type="submit" class="btn"><span class="fa fa-paper-plane"></span></button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="row bordertop pt-5">
+        <p class="col-md-6 text-center">
+          
+          <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+          Copyright &copy;<script data-cfasync="false"></script><script>document.write(new Date().getFullYear());</script> All Rights Reserved | Hotel Reservation System</i> 
+          <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+          
+        </p>
+      </div>
+    </div>
+  </footer>
